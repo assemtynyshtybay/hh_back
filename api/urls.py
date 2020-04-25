@@ -1,13 +1,15 @@
 from django.urls import path
-from api import views
-
+from api.Views.view_generic import VacancyListAPIView, VacancyDetailAPIView, \
+   CompanyListAPIView, CompanyDetailAPIView
+from rest_framework_jwt.views import obtain_jwt_token
 urlpatterns = [
-    path('companies/', views.company_list),
-    path('companies/<int:pk>/', views.companies_detail),
-    path('companies/<int:pk>/vacancies/', views.company_vacancies),
-    path('vacancies/',views.vacancy_list),
-    path('vacancies/<int:pk>/', views.vacancies_detail),
-    path('vacancies/top_ten/',views.top_ten)
+    path('login/', obtain_jwt_token),
+    path('companies/', CompanyListAPIView.as_view()),
+    path('companies/<int:pk>/', CompanyDetailAPIView.as_view()),
+    #path('companies/<int:pk>/vacancies/', views.company_vacancies),
+    path('vacancies/', VacancyListAPIView.as_view()),
+    path('vacancies/<int:pk>/', VacancyDetailAPIView.as_view()),
+    #path('vacancies/top_ten/',views.top_ten)
 ]
 # /api/ - List of all Companies
 # /api/companies/<int:id>/ - Get one Company
